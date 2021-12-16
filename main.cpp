@@ -22,15 +22,12 @@ void *produce(void *arguments)
     int index = args->index;
     int buffer_size = args->buffer_size;
 
-    int count;
-
     while (true) {
         sleep(1);
-        count = buffer->put();
+        int count = buffer->put();
         
-        printf("Producer %d: Created %s (%d/%d)\n",
-               index, buffer->get_item_name().c_str(),
-               count, buffer_size);
+        printf("Producer %d: Created %s (%d/%d)\n", 
+               index, buffer->get_item_name().c_str(), count, buffer_size);
     }
 }
 
@@ -42,13 +39,11 @@ void *consume(void *arguments)
     int index = args->index;
     int buffer_size = args->buffer_size;
 
-    int count_nadzienie, count_ciasto;
-
     while (true) {
         sleep(1);
 
-        count_nadzienie = buffer_nadzienie->get();
-        count_ciasto = buffer_ciasto->get();
+        int count_nadzienie = buffer_nadzienie->get();
+        int count_ciasto = buffer_ciasto->get();
             
         printf("Consumer %d: Made pierog with %s (%d/%d) (Ciasto %d/%d)\n",
                index, buffer_nadzienie->get_item_name().c_str(), count_nadzienie,
